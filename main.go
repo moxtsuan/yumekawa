@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"golang.org/x/text/unicode/norm"
 )
@@ -12,7 +13,11 @@ func main() {
 	daku = 0x3099
 	s := ""
 	if len(os.Args) > 1 {
-		s = os.Args[1]
+		t := os.Args[1:]
+		for _, c := range t {
+			s += c + " "
+		}
+		s = strings.TrimSpace(s)
 	} else {
 		s = "ウェェ"
 	}
@@ -23,7 +28,9 @@ func main() {
 			continue
 		}
 		t = append(t, r)
-		t = append(t, daku)
+		if r != ' ' {
+			t = append(t, daku)
+		}
 	}
 	s3 := (string)(t)
 	fmt.Println(s3)
